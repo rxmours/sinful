@@ -92,8 +92,8 @@ async def prefix(ctx, new_prefix=None):
     await ctx.message.delete()
     if new_prefix is None:
         await ctx.send(
-            f'[Invalid]: Its {bot.command_prefix}prefix <new_prefix>')
-        return
+            f'```[Invalid]: Its {bot.command_prefix}prefix <new_prefix>```')
+            return
     bot.command_prefix = str(new_prefix)
     await ctx.send(f'```Prefix changed to {new_prefix}```')
 
