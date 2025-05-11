@@ -95,7 +95,7 @@ async def prefix(ctx, new_prefix=None):
             f'```[Invalid]: Its {bot.command_prefix}prefix <new_prefix>```')
             return
     bot.command_prefix = str(new_prefix)
-    await ctx.send(f'```Prefix changed to {new_prefix}```')
+    await ctx.send(f'```Prefix changed to: {new_prefix}```')
 
 @bot.command(name="rotatereact", aliases=['rreact', 'rr', 'react'])
 async def set_emojis(ctx, *args):
