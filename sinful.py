@@ -238,7 +238,7 @@ async def help(ctx):
 @bot.command(name='menu', aliases=[''])
 async def menu(ctx):
     await ctx.message.delete()
-    menu = f"```catagory commands:\n{bot.command_prefix}(catagory) to view catagory commands```""```catagories:\nInfo         -   bot info\nTools        -   bot tools\nPresence     -   presence commands\nServer       -   server utility\nFun          -   entertainment\nNSFW         -   all nsfw commands```""```made by: Rxmours \nversion: 0.5.0```"
+    menu = f"```catagory commands:\n{bot.command_prefix}(catagory) to view catagory commands```""```catagories:\nInfo         -   bot info\nTools        -   bot tools\nPresence     -   presence commands\nServer       -   server utility\nFun          -   entertainment\nNSFW         -   all nsfw commands```""```made by: Rxmours \nversion: 1.0```"
     await ctx.send(menu, delete_after=30)
     
 @bot.command(name="info", aliases=['Info', ])
@@ -263,7 +263,7 @@ async def info(ctx):
         f"Current prefix: {bot.command_prefix}\n"
         f"Uptime:         {uptime}\n"
         f"Ping:           {ping}ms\n"
-        "Version:        v0.5.0\n"
+        "Version:        v1.0\n"
     )
 
     await ctx.send(f"```{info_message}```", delete_after=30)
