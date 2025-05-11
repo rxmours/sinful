@@ -27,7 +27,7 @@ Please note that using selfbots is against Discord's Terms of Service. Use this 
 ## Help/Support
 
 - Telegram [@Rxmours](https://t.me/rxmours)
-- Discord [@rxmours.](https://discord.gg/NQ4yfTbS)
+- Discord [@Rxmours](https://discord.gg/NQ4yfTbS)
 
 # Credits
 
