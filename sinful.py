@@ -15,12 +15,13 @@ import asyncio
 import requests
 import io
 import time
+import ctypes
 
 prefix = '*'
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix=prefix, self_bot=True, intents=intents)
 
-token = "enter_token_here"
+token = "your_token_here"
 
 #variables
 snipe_messages = {}
@@ -47,19 +48,37 @@ emoji_indices = {}
 stop_event = asyncio.Event()
 purge_tasks = {}
 
+#art
+sinful = """
+⠀⠀⠀⢀⡠⠤⠔⢲⢶⡖⠒⠤⢄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⣠⡚⠁⢀⠀⠀⢄⢻⣿⠀⠀⠀⡙⣷⢤⡀⠀⠀⠀⠀⠀⠀
+⠀⡜⢱⣇⠀⣧⢣⡀⠀⡀⢻⡇⠀⡄⢰⣿⣷⡌⣢⡀⠀⠀⠀⠀
+⠸⡇⡎⡿⣆⠹⣷⡹⣄⠙⣽⣿⢸⣧⣼⣿⣿⣿⣶⣼⣆⠀⠀⠀
+⣷⡇⣷⡇⢹⢳⡽⣿⡽⣷⡜⣿⣾⢸⣿⣿⣿⣿⣿⣿⣿⣷⣄⠀
+⣿⡇⡿⣿⠀⠣⠹⣾⣿⣮⠿⣞⣿⢸⣿⣛⢿⣿⡟⠯⠉⠙⠛⠓
+⣿⣇⣷⠙⡇⠀⠁⠀⠉⣽⣷⣾⢿⢸⣿⠀⢸⣿⢿⠀⠀⠀⠀⠀
+⡟⢿⣿⣷⣾⣆⠀⠀⠘⠘⠿⠛⢸⣼⣿⢖⣼⣿⠘⡆⠀⠀⠀⠀
+⠃⢸⣿⣿⡘⠋⠀⠀⠀⠀⠀⠀⣸⣿⣿⣿⣿⣿⡆⠇⠀⠀⠀⠀
+⠀⢸⡿⣿⣇⠀⠈⠀⠤⠀⠀⢀⣿⣿⣿⣿⣿⣿⣧⢸⠀⠀⠀⠀
+⠀⠈⡇⣿⣿⣷⣤⣀⠀⣀⠔⠋⣿⣿⣿⣿⣿⡟⣿⡞⡄⠀⠀⠀
+⠀⠀⢿⢸⣿⣿⣿⣿⣿⡇⠀⢠⣿⡏⢿⣿⣿⡇⢸⣇⠇⠀⠀⠀
+⠀⠀⢸⡏⣿⣿⣿⠟⠋⣀⠠⣾⣿⠡⠀⢉⢟⠷⢼⣿⣿⠀⠀⠀
+⠀⠀⠈⣷⡏⡱⠁⠀⠊⠀⠀⣿⣏⣀⡠⢣⠃⠀⠀⢹⣿⡄⠀⠀
+⠀⠀⠘⢼⣿⠀⢠⣤⣀⠉⣹⡿⠀⠁⠀⡸⠀⠀⠀⠈⣿⡇⠀
+"""
+
 @bot.remove_command('help')
 @bot.event
 async def on_ready():
-    print(
-        f'[Success] bot logged in as {bot.user.name}'
-    )
-    
+    print("[Bot Loaded Successfully]")
+    print(sinful)
+    print("Sinful Selfbot by Rxmours")
+    print("‎")
+    print(f"Welcome {bot.user.name}")
     stream = discord.Streaming(name="Sinful Selfbot by Rxmours", url=stream_url)
     await bot.change_presence(activity=stream)
-
-    # Start the task only once
-    if status_task is None or status_task.done():
-        status_task = asyncio.create_task(cycle_status())
+    
+    ctypes.windll.kernel32.SetConsoleTitleW("Sinful Selfbot by Rxmours")
 
 
 @bot.event
@@ -86,16 +105,16 @@ async def on_message(message):
                 await message.channel.send(f"```{user.name} is away: {afk_users[user.id]}```")
 
     await bot.process_commands(message)
-    
+
 @bot.command(name='prefix')
 async def prefix(ctx, new_prefix=None):
     await ctx.message.delete()
     if new_prefix is None:
         await ctx.send(
             f'```[Invalid]: Its {bot.command_prefix}prefix <new_prefix>```')
-            return
+        return
     bot.command_prefix = str(new_prefix)
-    await ctx.send(f'```Prefix changed to: {new_prefix}```')
+    await ctx.send(f'```Prefix changed to {new_prefix}```')
 
 @bot.command(name="rotatereact", aliases=['rreact', 'rr', 'react'])
 async def set_emojis(ctx, *args):
@@ -246,8 +265,8 @@ async def help(ctx):
 @bot.command(name='menu', aliases=[''])
 async def menu(ctx):
     await ctx.message.delete()
-    menu = f"```catagory commands:\n{bot.command_prefix}(catagory) to view catagory commands```""```catagories:\nInfo         -   bot info\nTools        -   bot tools\nPresence     -   presence commands\nServer       -   server utility\nFun          -   entertainment\nNSFW         -   all nsfw commands```""```made by: Rxmours \nversion: 1.0```"
-    await ctx.send(menu, delete_after=30)
+    menu = f"```catagory commands:\n{bot.command_prefix}(catagory) to view catagory commands```""```catagories:\nInfo         -   bot info\nTools        -   bot tools\nPresence     -   presence commands\nServer       -   server utility\nFun          -   entertainment\nNSFW         -   all nsfw commands```""```made by: Rxmours \nversion: 1.0.0```"
+    await ctx.send(menu, delete_after=60)
     
 @bot.command(name="info", aliases=['Info', ])
 async def info(ctx):
@@ -264,47 +283,47 @@ async def info(ctx):
     command_count = len(visible_commands)
 
     info_message = (
-        "Sinful Selfbot V0.5 | BOT INFO\n"
+        "Sinful Selfbot V1.0 | BOT INFO\n"
         "───────────────────────────\n"
         "Owner:          Rxmours\n"
         f"Commands:       {command_count}\n"
         f"Current prefix: {bot.command_prefix}\n"
         f"Uptime:         {uptime}\n"
         f"Ping:           {ping}ms\n"
-        "Version:        v1.0\n"
+        "Version:        v1.0.0\n"
     )
 
-    await ctx.send(f"```{info_message}```", delete_after=30)
+    await ctx.send(f"```{info_message}```", delete_after=60)
     
 @bot.command(name='tools', aliases=['Tools'])
 async def tools(ctx):
     await ctx.message.delete()
     tools = "```Tool Commands\nmassdm      - dms all friends\nmassunadd   - unadds all friends\nfriends     - shows friend count\nservers     - shows server list\npfp         - shows users pfp\nbanner      - shows (users banner\nreact       - sets a user react\nrotatereact - sets rotating reacts\nstopreact   - stops reacting to user\nafk         - sets afk status\nunafk       - stops afk status\nsnipe       - snipes a message\nping        - shows the bots ping\nspam        - spams a message```"
-    await ctx.send(tools, delete_after=30)
+    await ctx.send(tools, delete_after=60)
   
 @bot.command(name='nsfw', aliases=['NSFW'])
 async def nsfw(ctx):
     await ctx.message.delete()
     nsfw = "```" "NSFW Commands\nhentai   -   sends any hentai\nuniform  -   sends uniform hentai\nselfies  -   sends selfie hentai\noppai    -   sends oppai hentai\necchi    -   sends ecchi hentai\npussy    -   sends pussy content\nboobs    -   sends boob content\nanal     -   sends anal content\nblowjob  -   sends blowjob content" "```"
-    await ctx.send(nsfw, delete_after=30)
+    await ctx.send(nsfw, delete_after=60)
 
 @bot.command(name='presence', aliases=['Presence'])
 async def presence(ctx):
     await ctx.message.delete()
     status = "```Status commands\nrstatus       - rotates your status\nstopstatus    - clears your status\nrstream       - rotates streams\nstream        - sets a stream status\nplay          - sets a play status\nwatch         - sets a watch status\nlisten        - sets a listen status\nstopactivity  - stops your activity```"
-    await ctx.send(status, delete_after=30)
+    await ctx.send(status, delete_after=60)
     
 @bot.command(name='server', aliases=['Server'])
 async def server(ctx):
     await ctx.message.delete()
     server = "```Mass Server Commands\nmasskick          - kicks everyone\nmassban           - bans everyone\nmassunban         - unbans everyone\nmassroledelete    - deletes roles\nmasschanneldelete - deletes channels```"
-    await ctx.send(server, delete_after=30)
+    await ctx.send(server, delete_after=60)
     
 @bot.command(name='fun', aliases=['Fun'])
 async def fun(ctx):
     await ctx.message.delete()
     fun = "```Fun Commands\ncum         -   cumming\n9/11        -   plane crash\ndick        -   show users dick size\ngay         -   shows users %gay\nswat        -   swat someone\nesex        -   esex someone\nhack        -   hack someone\npack        -   rapid insults\nphc         -   pornhub comment\nnitro       -   generates nitro```"
-    await ctx.send(fun, delete_after=30)
+    await ctx.send(fun, delete_after=60)
         
    
 @bot.command(name='pack', help='throws random insults on mentioned user')
@@ -409,11 +428,15 @@ async def rstream(ctx, *, statuses=None):
             await bot.change_presence(activity=discord.Streaming(name=text, url="https://twitch.tv/discord"))
             await asyncio.sleep(5)
 
+
 @bot.command(aliases=["cancelstream", "stopstream"])
 async def endstream(ctx):
+    global rotating_status
+    rotating_status = False
     await ctx.message.delete()
     await bot.change_presence(activity=None)
-    await ctx.send("```streaming status cleared```")
+    await ctx.send("```Streaming status cleared.```")
+
 
 
 @bot.command()
@@ -1478,27 +1501,27 @@ async def crash(ctx):
     message = await ctx.send("```Crashing selfbot.exe```")
     await asyncio.sleep(0.5)
     await message.edit(content= "```3```")
-    await asyncio.sleep(0.25)
+    await asyncio.sleep(0.35)
     await message.edit(content="```3.```")
-    await asyncio.sleep(0.25)
+    await asyncio.sleep(0.35)
     await message.edit(content="```3..```")
-    await asyncio.sleep(0.25)
+    await asyncio.sleep(0.35)
     await message.edit(content="```3...```")
-    await asyncio.sleep(0.25)
+    await asyncio.sleep(0.35)
     await message.edit(content="```3... 2```")
-    await asyncio.sleep(0.25)
+    await asyncio.sleep(0.35)
     await message.edit(content="```3... 2.```")
-    await asyncio.sleep(0.25)
+    await asyncio.sleep(0.35)
     await message.edit(content="```3... 2..```")
-    await asyncio.sleep(0.25)
+    await asyncio.sleep(0.35)
     await message.edit(content="```3... 2...```")
     await asyncio.sleep(0.25)
     await message.edit(content="```3... 2... 1```")
-    await asyncio.sleep(0.25)
+    await asyncio.sleep(0.35)
     await message.edit(content="```3... 2... 1.```")
-    await asyncio.sleep(0.25)
+    await asyncio.sleep(0.35)
     await message.edit(content="```3... 2... 1..```")
-    await asyncio.sleep(0.25)
+    await asyncio.sleep(0.35)
     await message.edit(content="```3... 2... 1...```")
     await asyncio.sleep(0.5)
     await message.edit(content="```[Success] Crashed selfbot.exe```")
@@ -1509,17 +1532,6 @@ async def crash(ctx):
 @bot.command(hidden=True)
 async def debug(ctx):
     await ctx.message.delete()
-    message = await ctx.send("```[Currently] Attempting to debug selfbot```")
-    await asyncio.sleep(0.5)
-    await message.edit(content="```[Currently] Attempting to debug selfbot.```")
-    await asyncio.sleep(0.5)
-    await message.edit(content="```[Currently] Attempting to debug selfbot..```")
-    await asyncio.sleep(0.5)
-    await message.edit(content="```[Currently] Attempting to debug selfbot...```")
-    await asyncio.sleep(0.5)
-    await message.edit(content="```[Currently] Restarting selfbot```")
-    await asyncio.sleep(2)
-    await message.edit(content=f"```[Success] selfbot has been debugged```")
     os.execv(sys.executable, ['python'] + sys.argv)
     
 
